@@ -1,0 +1,115 @@
+<h1>Reactive Form</h1>
+<div class="container">
+    <div class="row">
+        <div class="form-bg" style="padding: 20px; border-radius: 10px; box-shadow: 1px 1px 20px rgb(91, 90, 90);">
+
+            <form [formGroup]='SignupForm' #stepper>
+                <h2 class="">Registration Form</h2>
+
+                <div class="form-group d-flex">
+                    <div style=" width:40%; margin-right: 2%; ">
+                    <input type="text" formControlName="fname" #fname class="form-control" id="FormControlInput1"
+                        placeholder="FirstName" required ngModel >
+                        <span style="color: red;" *ngIf="error && error.invalid && error.touched">This field is Empty</span>
+                    </div> 
+
+                    <div style=" width:40%">
+                    <input type="text" formControlName="lname" #lname class="form-control" id="FormControlInput1"
+                        placeholder="LastName" required ngModel >
+                        <span style="color: red;" *ngIf="error2 && error2.invalid && error2.touched">This field is Empty</span>
+                    </div>
+                </div>
+                <br>
+                
+                <br>
+
+                <div class="from-group">
+                    <mat-form-field style="width: 40%;">
+                        <mat-label>Job Title</mat-label>
+                        <mat-select [(value)]="selected" formControlName="soption" #opt required>
+                            <mat-option value="select">None</mat-option>
+                            <mat-option value="option 1">option 1</mat-option>
+                            <mat-option value="option 2">option 2</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <br>
+
+                <div class="from-group">
+                    <mat-radio-group aria-label="Select an option" formControlName="radiobtn" #rad required>
+                        <mat-radio-button value="Fresher">Fresher</mat-radio-button>
+                        <mat-radio-button value="Exprienced">Exprienced</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+
+                <br>
+
+                <div class="from-group">
+                    <mat-divider></mat-divider>
+                    <div class="example-button-row" style="margin-top: 1%;">
+                        <button mat-raised-button color="primary" style="float: right;" [disabled]="!SignupForm.valid"
+                            (click)="additem()">Submit</button>
+                        <button mat-raised-button (click)="stepper.reset()" color="accent"
+                            style="margin-right: 2%; float: right;">Reset</button>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- <div class="container">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">No.</th>
+                <th scope="col">Name</th>
+                <th scope="col">Job-Title</th>
+                <th scope="col">Job-Exprinces</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let details of job ; let i = index">
+                <th scope="row">{{i+1}}</th>
+                <td>{{details.fname}}{{details.lname}}</td>
+                <td>{{details.soption}}</td>
+                <td>{{details.radiobtn}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div> -->
+<div class="container" style="width: 100%; margin-top: 30px;">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+        <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="position">
+            <th mat-header-cell *matHeaderCellDef> No. </th>
+            <td mat-cell *matCellDef="let element"> {{element.no}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.fname}} {{element.lname}}</td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="weight">
+            <th mat-header-cell *matHeaderCellDef> Weight </th>
+            <td mat-cell *matCellDef="let element"> {{element.soption}} </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="symbol">
+            <th mat-header-cell *matHeaderCellDef> Symbol </th>
+            <td mat-cell *matCellDef="let element"> {{element.radiobtn}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>
